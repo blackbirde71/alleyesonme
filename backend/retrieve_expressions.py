@@ -6,7 +6,7 @@ import json
 import base64
 
 # Replace with your actual API key
-API_KEY = "OcVBQgwWGCvUyA88ahXvH54JSAFD33ZbDdHNykEAYYBRjEDp"
+API_KEY = "ENTER API KEY HERE"
 
 # WebSocket connection to Hume AI API
 ws = websocket.WebSocket()
