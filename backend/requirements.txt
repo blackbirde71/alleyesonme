@@ -1,0 +1,3 @@
+hume[stream]
+opencv-python
+websocket-client
