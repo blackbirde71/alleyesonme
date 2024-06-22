@@ -8,6 +8,7 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 # Replace with your actual API key
@@ -75,7 +76,8 @@ while True:
             ax.set_xticks(range(len(emotion_labels)))
             ax.set_xticklabels(emotion_labels, rotation=45, ha='right', fontsize=12)
             ax.set_ylim(0, 1)
-        
+                    
+
         # Update the histogram
         for bar, intensity in zip(bars, intensities):
             bar.set_height(intensity)
