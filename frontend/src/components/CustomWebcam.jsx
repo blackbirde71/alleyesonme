@@ -89,7 +89,7 @@ export default function CustomWebcam() {
       // Download the emotion data as a JSON file
       const jsonData = JSON.stringify(emotionData.current, null, 2);
       const blob = new Blob([jsonData], { type: "application/json" });
-      download(blob, "emotion_data.json", "application/json");
+      //download(blob, "emotion_data.json", "application/json");
     };
 
     ws.onerror = (err) => {
