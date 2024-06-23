@@ -47,8 +47,10 @@ export default function Chart() {
           <XAxis dataKey="time">
             <Label value="Time (ms)" offset={-5} position="insideBottom" />
           </XAxis>
-          <YAxis dataKey="score" tickFormatter = {formatYAxis}>
-            <Label value="Locked-In Score" angle={-90} position="left" />
+          <YAxis tickMargin={-5} dataKey="score" tickFormatter = {formatYAxis} >
+            
+            <Label value="Locked-In Score" angle={-90} offset={20} position="center" >
+              </Label>
           </YAxis>
           <Tooltip />
           <Legend />
