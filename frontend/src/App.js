@@ -1,9 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
 import * as Constants from './constants';
 import EngagementGraph from './EngagementGraph';
 import EmotionDistributionChart from './EmotionDistributionChart';
 import AttentionProportionChart from './AttentionProportionChart';
+import "./App.css";
+import StudentPage from "./pages/StudentPage";
+
 
 function App() {
 
@@ -130,17 +131,8 @@ function App() {
   const studentsAttentionData = generateMockStudentData(duration);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <EngagementGraph attentionData={attentionData} slideData={slideData} startSlide={0} endSlide={6} />
-          <EmotionDistributionChart emotionData={emotionData} slideData={slideData} startSlide={0} endSlide={6} />
-          <AttentionProportionChart studentsAttentionData={studentsAttentionData} duration={duration} />
-        
-      </header>
+    <div className="w-screen h-screen bg-primary-600 flex text-primary-100 font-work">
+      <StudentPage />
     </div>
   );
 }
