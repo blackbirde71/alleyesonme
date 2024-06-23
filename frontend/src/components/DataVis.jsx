@@ -7,7 +7,7 @@ import Chart from "../vis/Chart";
 
 export default function DataVis() {
   return (
-    <div className="row-span-1 col-span-1 rounded-lg">
+    <div className="row-span-1 col-span-1 rounded-lg flex flex-col h-full">
       <Chart />
     </div>
   );
