@@ -3,3 +3,5 @@ opencv-python
 websocket-client
 seaborn
 python-dotenv
+requests
+flask
