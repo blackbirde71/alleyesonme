@@ -15,8 +15,8 @@ export default function DataColumn() {
         {currClass.name}
       </div>
       <div className="grid-cols-2 grid-rows-2 w-full h-max  rounded-xl grow grid gap-5">
-          <DataVis />
-          <CustomWebcam />
+        <DataVis />
+        <CustomWebcam />
         <SlidesBox />
       </div>
     </div>

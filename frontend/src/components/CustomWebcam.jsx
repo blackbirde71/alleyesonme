@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 import { useStore } from "../Store";
 import MicRecorder from "mic-recorder-to-mp3";
 import "./customWebcam.css";
+import ResponseFormatter from "./ResponseFormatter";
 
 const recorder = new MicRecorder({ bitRate: 128 });
 
@@ -299,28 +300,45 @@ export default function CustomWebcam() {
   };
 
   return (
-    <div>
+    <div className="">
       <Webcam ref={webcamRef} />
       <div>Current Emotion: {currentEmotion}</div>
       <button
-        className={`record-button ${isRecording ? "recording" : ""}`}
+        className={`${
+          isRecording
+            ? "text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            : "text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        }`}
         onClick={isRecording ? stopRecording : startRecording}
       >
         {isRecording ? "Stop Recording" : "Start Recording"}
       </button>
       <div>
-        <input type="file" accept=".pdf" onChange={handlePdfUpload} />
-        <button onClick={uploadPdf} disabled={!pdfFile}>
+        <input
+          type="file"
+          accept=".pdf"
+          onChange={handlePdfUpload}
+          className="block w-full text-sm mb-5 mt-3 border border-primary-300 rounded-lg cursor-pointer bg-primary-400 focus:outline-none text-primary-100 "
+        />
+        <button
+          onClick={uploadPdf}
+          disabled={!pdfFile}
+          className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
           Upload PDF
         </button>
       </div>
-      <button onClick={analyzeContent} disabled={!pdfPath || !transcriptions}>
+      <button
+        onClick={analyzeContent}
+        disabled={!pdfPath || !transcriptions}
+        className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      >
         Analyze Content
       </button>
       {analysis && (
         <div>
           <h2>Analysis Results:</h2>
-          <p>{analysis}</p>
+          <ResponseFormatter text={analysis} />
         </div>
       )}
     </div>
