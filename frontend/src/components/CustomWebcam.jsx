@@ -11,6 +11,7 @@ export default function CustomWebcam() {
   const API_KEY = "6W8ZAm2iRotx0RTXxlOesphgGBqBaF2RcedVPBQjKjfgQVyZ";
   const endpoint = `wss://api.hume.ai/v0/stream/models?api_key=${API_KEY}`;
   const addBoredom = useStore((state) => state.addBoredom);
+  const addTimesLocked = useStore((state) =>state.addTimesLocked)
 
   const webcamRef = useRef(null);
   const [currentEmotion, setCurrentEmotion] = useState("");
@@ -124,13 +125,18 @@ export default function CustomWebcam() {
           let goodAvg = sum(scores) / scores.length;
           let badAvg = (sum(badScores) - boredomVal) / (badScores.length - 1);
 
-          return goodAvg - goodAvg * (1 - (4 * boredomVal + badAvg) / 2);
+          let wAvg = goodAvg - goodAvg * (1 - (4 * boredomVal + badAvg) / 2)
+          if (wAvg > .6) return .6
+          return wAvg
         };
 
         addBoredom({
           score: chooseScore(),
           time: count * 1000,
         });
+        if (chooseScore() >= .3) {
+          addTimesLocked();
+        }
       }
     };
 
