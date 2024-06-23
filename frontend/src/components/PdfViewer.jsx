@@ -2,6 +2,7 @@ import React from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import TestPdf from "../media/test.pdf";
 import { useState } from "react";
+import { useStore } from "../Store";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url
@@ -9,6 +10,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 export default function PdfViewer() {
   const [numPages, setNumPages] = useState();
   const [currIndex, setCurrIndex] = useState(0);
+  const pdf = useStore((state) => state.pdf);
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
     setNumPages(nextNumPages);
@@ -18,7 +20,7 @@ export default function PdfViewer() {
     <div className="flex flex-col h-full w-full justify-center items-center">
       <div className="w-full h-full bg-primary-400 rounded-xl flex overflow-clip flex justify-center">
         <Document
-          file={TestPdf}
+          file={pdf}
           className={"h-4"}
           onLoadSuccess={onDocumentLoadSuccess}
         >

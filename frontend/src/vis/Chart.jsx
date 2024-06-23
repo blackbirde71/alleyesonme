@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  Label
+  Label,
 } from "recharts";
 import { useStore } from "../Store";
 
@@ -16,23 +16,23 @@ export default function Chart() {
   const data = useStore((state) => state.boredom);
   const formatYAxis = (value) => {
     if (value < 0.1) {
-      return "😴"
+      return "😴";
     }
     if (value < 0.2) {
-      return "🥱"
+      return "🥱";
     }
     if (value < 0.3) {
-      return "🫤"
+      return "🫤";
     }
     if (value < 0.4) {
-      return "😎"
+      return "😎";
     }
-    return "🤓"
+    return "🤓";
   };
   console.log(data);
   return (
-    <div style={{ width: '100%', height: 300 }}>
-      <h2 style={{ textAlign: 'center' }}>Locked-In Chart</h2>
+    <div style={{ width: "100%", height: 300 }}>
+      <h2 style={{ textAlign: "center" }}>Locked-In Chart</h2>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -40,7 +40,7 @@ export default function Chart() {
             top: 5,
             right: 30,
             left: 20,
-            bottom: 5
+            bottom: 5,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />

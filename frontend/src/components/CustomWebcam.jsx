@@ -21,6 +21,7 @@ export default function CustomWebcam() {
   const [pdfPath, setPdfPath] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [transcriptions, setTranscriptions] = useState(null);
+  const setPdf = useStore((state) => state.setPdf);
 
   const startRecording = () => {
     setIsRecording(true);
@@ -88,8 +89,9 @@ export default function CustomWebcam() {
           time: new Date().toLocaleString(),
         });
 
-        const scores = [response.face.predictions[0].emotions[9].score, 
-          response.face.predictions[0].emotions[10].score, 
+        const scores = [
+          response.face.predictions[0].emotions[9].score,
+          response.face.predictions[0].emotions[10].score,
           response.face.predictions[0].emotions[12].score,
           response.face.predictions[0].emotions[16].score,
           response.face.predictions[0].emotions[13].score,
@@ -97,33 +99,32 @@ export default function CustomWebcam() {
           response.face.predictions[0].emotions[29].score,
           response.face.predictions[0].emotions[35].score,
           response.face.predictions[0].emotions[39].score,
-          response.face.predictions[0].emotions[45].score]
-        
+          response.face.predictions[0].emotions[45].score,
+        ];
+
         const badScores = [
           response.face.predictions[0].emotions[8].score,
           response.face.predictions[0].emotions[4].score,
           response.face.predictions[0].emotions[11].score,
           response.face.predictions[0].emotions[19].score,
           response.face.predictions[0].emotions[44].score,
-        ]
+        ];
 
         const sum = (array) => {
           let ans = 0;
-          array.forEach((num) =>{
+          array.forEach((num) => {
             ans += num;
-          })
-          return ans
-        }
-        
+          });
+          return ans;
+        };
 
-        const chooseScore = () =>{
-          let boredomVal = response.face.predictions[0].emotions[8].score
-          let goodAvg = sum(scores)/scores.length
-          let badAvg = (sum(badScores) - boredomVal)/(badScores.length-1)
+        const chooseScore = () => {
+          let boredomVal = response.face.predictions[0].emotions[8].score;
+          let goodAvg = sum(scores) / scores.length;
+          let badAvg = (sum(badScores) - boredomVal) / (badScores.length - 1);
 
-          return (goodAvg - (goodAvg * (1 - ((4 * boredomVal) + badAvg)/2)));
-        }
-        
+          return goodAvg - goodAvg * (1 - (4 * boredomVal + badAvg) / 2);
+        };
 
         addBoredom({
           score: chooseScore(),
@@ -183,12 +184,16 @@ export default function CustomWebcam() {
   const handlePreprocessedData = (data) => {
     // Save preprocessed JSON data
     const preprocessedJson = JSON.stringify(data, null, 2);
-    const preprocessedBlob = new Blob([preprocessedJson], { type: "application/json" });
+    const preprocessedBlob = new Blob([preprocessedJson], {
+      type: "application/json",
+    });
     downloadBlob(preprocessedBlob, "preprocessed_data.json");
 
     // Save transcriptions
     const transcriptionsJson = JSON.stringify(data.transcriptions, null, 2);
-    const transcriptionsBlob = new Blob([transcriptionsJson], { type: "application/json" });
+    const transcriptionsBlob = new Blob([transcriptionsJson], {
+      type: "application/json",
+    });
     downloadBlob(transcriptionsBlob, "transcriptions.json");
     setTranscriptions(data.transcriptions);
 
@@ -200,7 +205,7 @@ export default function CustomWebcam() {
       for (let i = 0; i < binaryAudio.length; i++) {
         view[i] = binaryAudio.charCodeAt(i);
       }
-      const blob = new Blob([arrayBuffer], {type: 'audio/mp3'});
+      const blob = new Blob([arrayBuffer], { type: "audio/mp3" });
       downloadBlob(blob, `audio_snippet_${index + 1}.mp3`);
     });
   };
@@ -220,6 +225,7 @@ export default function CustomWebcam() {
     const file = event.target.files[0];
     if (file && file.type === "application/pdf") {
       setPdfFile(file);
+      setPdf(URL.createObjectURL(file));
     } else {
       alert("Please upload a valid PDF file.");
     }
@@ -264,7 +270,7 @@ export default function CustomWebcam() {
     fetch("http://127.0.0.1:5000/analyze", {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         pdf_path: pdfPath,
