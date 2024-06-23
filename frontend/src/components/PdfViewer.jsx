@@ -22,17 +22,29 @@ export default function PdfViewer() {
           className={"h-4"}
           onLoadSuccess={onDocumentLoadSuccess}
         >
-          <Page pageNumber={1} className={"w-full h-full"} />
+          <Page pageNumber={currIndex + 1} className={"w-full h-full"} />
         </Document>
       </div>
-      <div className="flex mt-4">
+      <div className="flex pt-4 justify-center items-center">
+        <div
+          className="mx-4 text-xl"
+          onClick={() => setCurrIndex((currIndex - 1) % numPages)}
+        >
+          ←
+        </div>
         {Array.from(new Array(numPages), (el, index) => (
           <div
             className={`w-2 h-2 rounded-full ${
-              index === currIndex + 1 ? "bg-primary-100" : "bg-primary-200"
+              index === currIndex ? "bg-primary-100" : "bg-primary-200"
             } mx-1`}
           />
         ))}
+        <div
+          className="mx-4 text-xl"
+          onClick={() => setCurrIndex((currIndex + 1) % numPages)}
+        >
+          →
+        </div>
       </div>
     </div>
   );

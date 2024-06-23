@@ -8,7 +8,7 @@ export default function SlidesBox({}) {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const onSlideClick = (i) => {
-    setSlideOpen(!slideOpen);
+    setSlideOpen(true);
     setSlideIndex(i);
   };
   return (
@@ -18,6 +18,17 @@ export default function SlidesBox({}) {
           slideOpen ? "grow" : ""
         } p-5 w-1/2`}
       >
+        {slideOpen ? (
+          <div
+            className="text-2xl absolute bold"
+            onClick={() => setSlideOpen(false)}
+          >
+            {" "}
+            ←
+          </div>
+        ) : (
+          <></>
+        )}
         Slides to Review
         <div
           className="flex justify-center items-center grow"

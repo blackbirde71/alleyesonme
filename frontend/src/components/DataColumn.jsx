@@ -21,7 +21,7 @@ export default function DataColumn() {
           <CustomWebcam />
         </>
         <SlidesBox />
-        <GazeCloudAPILoader style="display: hidden" />
+        <GazeCloudAPILoader />
       </div>
     </div>
   );
