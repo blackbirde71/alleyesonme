@@ -87,6 +87,7 @@ export default function CustomWebcam() {
           emotion: highestEmotion.name,
           time: new Date().toLocaleString(),
         });
+
         const scores = [response.face.predictions[0].emotions[9].score, 
           response.face.predictions[0].emotions[10].score, 
           response.face.predictions[0].emotions[12].score,
@@ -97,9 +98,35 @@ export default function CustomWebcam() {
           response.face.predictions[0].emotions[35].score,
           response.face.predictions[0].emotions[39].score,
           response.face.predictions[0].emotions[45].score]
+        
+        const badScores = [
+          response.face.predictions[0].emotions[8].score,
+          response.face.predictions[0].emotions[4].score,
+          response.face.predictions[0].emotions[11].score,
+          response.face.predictions[0].emotions[19].score,
+          response.face.predictions[0].emotions[44].score,
+        ]
+
+        const sum = (array) => {
+          let ans = 0;
+          array.forEach((num) =>{
+            ans += num;
+          })
+          return ans
+        }
+        
+
+        const chooseScore = () =>{
+          let boredomVal = response.face.predictions[0].emotions[8].score
+          let goodAvg = sum(scores)/scores.length
+          let badAvg = (sum(badScores) - boredomVal)/(badScores.length-1)
+
+          return (goodAvg - (goodAvg * (1 - ((5 * boredomVal) + badAvg)/2)));
+        }
+        
 
         addBoredom({
-          score: Math.max.apply(Math, scores),
+          score: chooseScore(),
           time: count * 1000,
         });
       }

@@ -5,7 +5,6 @@ import CustomWebcam from "./CustomWebcam";
 import SlidesBox from "./SlidesBox";
 import { useState } from "react";
 import PdfViewer from "./PdfViewer";
-import GazeCloudAPILoader from "./GazeCloudComponent";
 
 export default function DataColumn() {
   const currClass = useStore((state) => state.currClass);
@@ -21,7 +20,6 @@ export default function DataColumn() {
           <CustomWebcam />
         </>
         <SlidesBox />
-        <GazeCloudAPILoader />
       </div>
     </div>
   );
