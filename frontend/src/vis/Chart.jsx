@@ -32,19 +32,22 @@ export default function Chart() {
     console.log(data)
     //if (!data) return;
     if (data.length === 0) return;
-    setFlag(data[data.length-1].score < .3 ? "You gotta lock in! 😤 ": "You're locked in! 🫡 ")
+    setFlag(data[data.length-1].score < .25 ? "You gotta lock in! 😤 ": "You're locked in! 🫡 ")
   }, [data, timesLocked])
   const formatYAxis = (value) => {
-    if (value < 0.1) {
+    if (value < 0.075) {
+      return "🛏️";
+    }
+    if (value < 0.125) {
       return "😴";
     }
-    if (value < 0.2) {
+    if (value < 0.175) {
       return "🥱";
     }
-    if (value < 0.3) {
+    if (value < 0.25) {
       return "🫤";
     }
-    if (value < 0.4) {
+    if (value < 0.3) {
       return "😎";
     }
     return "🤓";
