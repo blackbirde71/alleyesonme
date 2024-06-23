@@ -1,0 +1,12 @@
+name: myenv
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - flask
+  - flask-cors
+  - openai
+  - pip
+  - pip:
+    - whisper
+    - openai
