@@ -1,9 +1,11 @@
 import express from 'express';
 import { claude } from './claude.js';
+import cors from 'cors';
 
 const app = express();
 const port = 7878;
 
+app.use(cors());
 app.use(express.json())
 
 app.post('/claude', async (req, res) => {
