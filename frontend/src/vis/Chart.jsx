@@ -49,7 +49,7 @@ export default function Chart() {
           </XAxis>
           <YAxis tickMargin={-5} dataKey="score" tickFormatter = {formatYAxis} >
             
-            <Label value="Locked-In Score" angle={-90} offset={20} position="center" >
+            <Label value="Locked-In Score" angle={-90} position="center" >
               </Label>
           </YAxis>
           <Tooltip />
