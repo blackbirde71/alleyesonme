@@ -50,9 +50,9 @@ export default function Chart() {
     return "🤓";
   };
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: "100%"}}>
       <h2 style={{ textAlign: "center" }}>Locked-In Chart</h2>
-      <ResponsiveContainer>
+      <ResponsiveContainer maxHeight={300}>
         <LineChart
           data={data}
           margin={{
@@ -61,6 +61,8 @@ export default function Chart() {
             left: 20,
             bottom: 5,
           }}
+          height={300}
+          width={"100%"}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="time">
@@ -77,11 +79,15 @@ export default function Chart() {
         </LineChart>
       </ResponsiveContainer>
       <h1 style={{ textAlign: "center" }}>{flag} Locked in {((timesLocked/data.length).toFixed(2)) * 100}% of the time</h1>
-      <PieChart width={730} height={250}>
+      <ResponsiveContainer maxHeight={300}>
+
+      <PieChart width={"100%"} height={250}>
         <Pie data={[{"name": "Locked In", "value": (timesLocked/data.length).toFixed(2) * 100}, 
           {"name": "Not Locked In", "value" : 100 - ((timesLocked/data.length).toFixed(2) * 100)}
-        ]} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" />
+        ]} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label/>
       </PieChart>
+      </ResponsiveContainer>
+
     </div>
   );
 }
