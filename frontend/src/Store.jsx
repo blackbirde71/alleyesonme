@@ -8,4 +8,6 @@ export const useStore = create((set) => ({
   setCurrClass: (currClass) => set({ currClass }),
   boredom: [],
   addBoredom: (b) => set((state) => ({ boredom: [...state.boredom, b] })),
+  pdf: null,
+  setPdf: (pdf) => set({ pdf }),
 }));
