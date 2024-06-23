@@ -66,9 +66,19 @@ export default function CustomWebcam() {
           emotion: highestEmotion.name,
           time: new Date().toLocaleString(),
         });
+        const scores = [response.face.predictions[0].emotions[9].score, 
+          response.face.predictions[0].emotions[10].score, 
+          response.face.predictions[0].emotions[12].score,
+          response.face.predictions[0].emotions[16].score,
+          response.face.predictions[0].emotions[13].score,
+          response.face.predictions[0].emotions[23].score,
+          response.face.predictions[0].emotions[29].score,
+          response.face.predictions[0].emotions[35].score,
+          response.face.predictions[0].emotions[39].score,
+          response.face.predictions[0].emotions[45].score]
 
         addBoredom({
-          score: response.face.predictions[0].emotions[0].score,
+          score: Math.max.apply(Math, scores),
           time: count * 1000,
         });
       }
