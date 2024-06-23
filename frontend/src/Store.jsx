@@ -6,4 +6,6 @@ export const useStore = create((set) => ({
     semester: "Fall 2024",
   },
   setCurrClass: (currClass) => set({ currClass }),
+  boredom: [],
+  addBoredom: (b) => set((state) => ({ boredom: [...state.boredom, b] })),
 }));

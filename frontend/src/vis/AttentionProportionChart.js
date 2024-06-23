@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import * as Constants from "./constants";
+import { useStore } from "../Store";
 
-const AttentionProportionChart = ({ studentsAttentionData, duration }) => {
+const AttentionProportionChart = ({ duration }) => {
   const d3Container = useRef(null);
-
+  const studentsAttentionData = useStore((state) => state.boredom);
   useEffect(() => {
     if (studentsAttentionData && d3Container.current) {
       createAttentionProportionChart(

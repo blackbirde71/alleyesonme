@@ -1,6 +1,7 @@
 import React from "react";
 import { useStore } from "../Store";
 import DataVis from "./DataVis";
+import CustomWebcam from "./CustomWebcam";
 
 export default function DataColumn() {
   const currClass = useStore((state) => state.currClass);
@@ -11,9 +12,7 @@ export default function DataColumn() {
       </div>
       <div className="grid-cols-2 grid-rows-2 w-full h-max  rounded-xl grow grid gap-5">
         <DataVis />
-        <DataVis />
-        <DataVis />
-        <DataVis />
+        <CustomWebcam />
       </div>
     </div>
   );
