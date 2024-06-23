@@ -14,7 +14,7 @@ export default function SlidesBox({}) {
   return (
     <div className="row-span-1 col-span-2 flex">
       <div
-        className={`rounded-lg flex bg-primary-400 text-center flex flex-col transition-all ${
+        className={`rounded-lg text-xl bg-primary-400 text-center flex flex-col transition-all ${
           slideOpen ? "grow" : ""
         } p-5 w-1/2`}
       >
@@ -31,7 +31,7 @@ export default function SlidesBox({}) {
         )}
         Slides to Review
         <div
-          className="flex justify-center items-center grow"
+          className="flex justify-center items-center grow mt-1"
           onClick={() => onSlideClick(0)}
         >
           {slideOpen ? (
