@@ -11,13 +11,13 @@ import {
   Legend,
   ResponsiveContainer,
   Label,
+  Cell,
 } from "recharts";
 import { useStore } from "../Store";
 
 export default function Chart() {
-  const data = useStore((state) => 
-    state.boredom);
-  const timesLocked = useStore((state) => state.timesLocked)
+  const data = useStore((state) => state.boredom);
+  const timesLocked = useStore((state) => state.timesLocked);
   // const attentionFlag = (scores) => {
   //   if (!scores) return;
   //   if (scores[scores.length-1].score < .3) {
@@ -25,15 +25,18 @@ export default function Chart() {
   //   }
   //   return "You're locked in! 🫡"
   // }
-  const [flag, setFlag] = useState("test")
+  const [flag, setFlag] = useState("");
 
-  useEffect(() => 
-  {
-    console.log(data)
+  useEffect(() => {
+    console.log(data);
     //if (!data) return;
     if (data.length === 0) return;
-    setFlag(data[data.length-1].score < .3 ? "You gotta lock in! 😤 ": "You're locked in! 🫡 ")
-  }, [data, timesLocked])
+    setFlag(
+      data[data.length - 1].score < 0.3
+        ? "You gotta lock in! 😤 "
+        : "You're locked in! 🫡 "
+    );
+  }, [data, timesLocked]);
   const formatYAxis = (value) => {
     if (value < 0.1) {
       return "😴";
@@ -50,7 +53,7 @@ export default function Chart() {
     return "🤓";
   };
   return (
-    <div style={{ width: "100%"}}>
+    <div style={{ width: "100%" }}>
       <h2 style={{ textAlign: "center" }}>Locked-In Chart</h2>
       <ResponsiveContainer maxHeight={300}>
         <LineChart
@@ -68,26 +71,50 @@ export default function Chart() {
           <XAxis dataKey="time">
             <Label value="Time (ms)" offset={-5} position="insideBottom" />
           </XAxis>
-          <YAxis tickMargin={-5} dataKey="score" tickFormatter = {formatYAxis} >
-            
-            <Label value="Locked-In Score" angle={-90} position="center" >
-              </Label>
+          <YAxis tickMargin={-5} dataKey="score" tickFormatter={formatYAxis}>
+            <Label
+              value="Locked-In Score"
+              angle={-90}
+              position="center"
+            ></Label>
           </YAxis>
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="score" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
-      <h1 style={{ textAlign: "center" }}>{flag} Locked in {((timesLocked/data.length).toFixed(2)) * 100}% of the time</h1>
+      <h1 style={{ textAlign: "center" }}>
+        {flag} Locked in{" "}
+        {Math.trunc((timesLocked / data.length).toFixed(2) * 100)}% of the time
+      </h1>
       <ResponsiveContainer maxHeight={300}>
-
-      <PieChart width={"100%"} height={250}>
-        <Pie data={[{"name": "Locked In", "value": (timesLocked/data.length).toFixed(2) * 100}, 
-          {"name": "Not Locked In", "value" : 100 - ((timesLocked/data.length).toFixed(2) * 100)}
-        ]} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label/>
-      </PieChart>
+        <PieChart width={"100%"} height={250}>
+          <Pie
+            data={[
+              {
+                name: "Locked In",
+                value: Math.trunc((timesLocked / data.length).toFixed(2) * 100),
+              },
+              {
+                name: "Not Locked In",
+                value: Math.trunc(
+                  100 - (timesLocked / data.length).toFixed(2) * 100
+                ),
+              },
+            ]}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            fill="#8884d8"
+            label
+          >
+            <Cell fill="#00C49F" />
+            <Cell fill="#e22a2a" />
+          </Pie>
+        </PieChart>
       </ResponsiveContainer>
-
     </div>
   );
 }

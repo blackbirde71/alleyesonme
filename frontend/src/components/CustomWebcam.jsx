@@ -274,7 +274,7 @@ export default function CustomWebcam() {
       alert("Please upload a PDF and complete a recording session first.");
       return;
     }
-    isAnalyzing(true);
+    setIsAnalyzing(true);
     fetch("http://127.0.0.1:5000/analyze", {
       method: "POST",
       headers: {
@@ -286,7 +286,7 @@ export default function CustomWebcam() {
       }),
     })
       .then((response) => {
-        isAnalyzing(false);
+        setIsAnalyzing(false);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -334,7 +334,9 @@ export default function CustomWebcam() {
       <button
         onClick={analyzeContent}
         disabled={!pdfPath || !transcriptions}
-        className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        className={`text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ${
+          !pdfPath || !transcriptions ? "opacity-25" : ""
+        }`}
       >
         {isAnalyzing ? (
           <svg
@@ -355,9 +357,8 @@ export default function CustomWebcam() {
             />
           </svg>
         ) : (
-          <></>
+          <> Analyze Content</>
         )}
-        Analyze Content
       </button>
       {analysis && (
         <div>

@@ -33,8 +33,10 @@ export default function ResponseFormatter({ text }) {
         </div>
         <p>
           {currRecommendation + 1}.{" "}
-          <strong>{tips[currRecommendation + 1].title}</strong>{" "}
-          {tips[currRecommendation + 1].content}
+          <strong>
+            {tips[currRecommendation + 1] && tips[currRecommendation + 1].title}
+          </strong>{" "}
+          {tips[currRecommendation + 1] && tips[currRecommendation + 1].content}
         </p>
         <div
           className="mx-4 text-xl"
