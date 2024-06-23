@@ -121,7 +121,7 @@ export default function CustomWebcam() {
           let goodAvg = sum(scores)/scores.length
           let badAvg = (sum(badScores) - boredomVal)/(badScores.length-1)
 
-          return (goodAvg - (goodAvg * (1 - ((5 * boredomVal) + badAvg)/2)));
+          return (goodAvg - (goodAvg * (1 - ((4 * boredomVal) + badAvg)/2)));
         }
         
 

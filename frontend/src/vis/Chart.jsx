@@ -14,10 +14,25 @@ import { useStore } from "../Store";
 
 export default function Chart() {
   const data = useStore((state) => state.boredom);
+  const formatYAxis = (value) => {
+    if (value < 0.1) {
+      return "😴"
+    }
+    if (value < 0.2) {
+      return "🥱"
+    }
+    if (value < 0.3) {
+      return "🫤"
+    }
+    if (value < 0.4) {
+      return "😎"
+    }
+    return "🤓"
+  };
   console.log(data);
   return (
     <div style={{ width: '100%', height: 300 }}>
-      <h2 style={{ textAlign: 'center' }}>Boredom Over Time</h2>
+      <h2 style={{ textAlign: 'center' }}>Locked-In Chart</h2>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -30,10 +45,10 @@ export default function Chart() {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="time">
-            <Label value="Time (s)" offset={-5} position="insideBottom" />
+            <Label value="Time (ms)" offset={-5} position="insideBottom" />
           </XAxis>
-          <YAxis dataKey="score">
-            <Label value="Boredom Score" angle={-90} position="insideLeft" />
+          <YAxis dataKey="score" tickFormatter = {formatYAxis}>
+            <Label value="Locked-In Score" angle={-90} position="left" />
           </YAxis>
           <Tooltip />
           <Legend />
