@@ -10,4 +10,7 @@ export const useStore = create((set) => ({
   addBoredom: (b) => set((state) => ({ boredom: [...state.boredom, b] })),
   pdf: null,
   setPdf: (pdf) => set({ pdf }),
+
+  timesLocked: 0,
+  addTimesLocked: () => set((state) => ({timesLocked: state.timesLocked+1}))
 }));
