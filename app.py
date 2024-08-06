@@ -18,7 +18,7 @@ model = whisper.load_model("base")
 
 # Set up OpenAI API key
 
-client = OpenAI(api_key='ENTER OPEN AI KEY HERE')
+client = OpenAI(api_key='ENTER OPEN AI KEY')
 def time_difference_ms(time1, time2):
     t1 = datetime.strptime(time1, '%m/%d/%Y, %I:%M:%S %p')
     t2 = datetime.strptime(time2, '%m/%d/%Y, %I:%M:%S %p')
